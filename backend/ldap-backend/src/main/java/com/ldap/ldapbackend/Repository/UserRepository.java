@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.ldap.repository.LdapRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.ldap.ldapbackend2.Model.User;
+import com.ldap.ldapbackend.Model.User;
 
 @Repository
 public interface UserRepository extends LdapRepository<User> {

@@ -1,7 +1,7 @@
 package com.ldap.ldapbackend.Service;
 
-import com.example.ldap.ldapbackend2.Model.User;
-import com.example.ldap.ldapbackend2.Repository.UserRepository;
+import com.ldap.ldapbackend.Model.User;
+import com.ldap.ldapbackend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.support.LdapUtils;
 import org.springframework.stereotype.Service;
