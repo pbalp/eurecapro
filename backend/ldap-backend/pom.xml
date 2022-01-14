@@ -57,18 +57,24 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<addResources>true</addResources>
+					</configuration>
+					<!--version>2.6.2</version-->
+				</plugin>
 
-			<plugin>
-				<inherited>true</inherited>
-    			<groupId>org.apache.maven.plugins</groupId>
-    			<artifactId>maven-compiler-plugin</artifactId>  
-			</plugin>	
-		</plugins>
+				<plugin>
+					<inherited>true</inherited>
+    				<groupId>org.apache.maven.plugins</groupId>
+    				<artifactId>maven-compiler-plugin</artifactId>  
+				</plugin>	
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

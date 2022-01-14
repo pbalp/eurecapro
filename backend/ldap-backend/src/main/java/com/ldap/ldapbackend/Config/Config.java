@@ -23,14 +23,14 @@ public class Config extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.ldapAuthentication().userDnPatterns("uid={0},ou=people").groupSearchBase("ou=groups")
+		auth.ldapAuthentication().userDnPatterns("pbaltuille").groupSearchBase("ou=unileon")
 				.contextSource(contextSource()).passwordCompare().passwordEncoder(new LdapShaPasswordEncoder())
-				.passwordAttribute("userPassword");
+				.passwordAttribute("P@bl0!@#");
 	}
 
 	@Bean
 	public DefaultSpringSecurityContextSource contextSource() {
-		return new DefaultSpringSecurityContextSource(Arrays.asList("ldap://localhost:8389/"),
-				"dc=springframework,dc=org");
+		return new DefaultSpringSecurityContextSource(Arrays.asList("ldaps://147.27.47.5:636/"),
+				"dc=eurecapro,dc=tuc,dc=gr");
 	}
 }

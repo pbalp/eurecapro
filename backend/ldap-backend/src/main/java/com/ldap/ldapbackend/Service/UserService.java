@@ -35,20 +35,20 @@ public class UserService {
           .collect(Collectors.toList());
     }
 
-    public void create(final String username, final String password) {
+    /*public void create(final String username, final String password) {
         User newUser = new User(username,digestSHA(password));
         //newUser.setId(LdapUtils.emptyLdapName());
         userRepository.save(newUser);
 
-    }
+    }*/
 
-    public void modify(final String username, final String password) {
+    /*public void modify(final String username, final String password) {
         User user = userRepository.findByUsername(username);
         user.setPassword(password);
         userRepository.save(user);
-    }
+    }*/
 
-    private String digestSHA(final String password) {
+    /*private String digestSHA(final String password) {
         String base64;
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA");
@@ -59,5 +59,5 @@ public class UserService {
             throw new RuntimeException(e);
         }
         return "{SHA}" + base64;
-    }
+    }*/
 }
