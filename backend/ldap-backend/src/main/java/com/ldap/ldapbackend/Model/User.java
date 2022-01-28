@@ -1,42 +1,54 @@
 package com.ldap.ldapbackend.Model;
 
-import javax.naming.Name;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import org.springframework.ldap.odm.annotations.Attribute;
-import org.springframework.ldap.odm.annotations.Entry;
-import org.springframework.ldap.odm.annotations.Id;
+//import javax.naming.Name;
 
-@Entry(base = "ou=users", objectClasses = { "person", "inetOrgPerson", "top" })
+//import org.springframework.ldap.odm.annotations.Attribute;
+//import org.springframework.ldap.odm.annotations.Entry;
+//import org.springframework.ldap.odm.annotations.Id;
+
+//@Entry(base = "ou=users", objectClasses = { "person", "inetOrgPerson", "top" })
+@Entity
 public class User  {
         
-    @Id
+    /*@Id
     private int id;
     
     private @Attribute(name = "cn") String username;
-    private @Attribute(name = "sn") String password;
+    private @Attribute(name = "sn") String password;*/
     
+	@Id
     private String name;
     private String surname;
-    private String ssn;
+    //private String ssn;
+	private String email;
     private String university;
+	private String role;
+	private String status;
     private String cardNumber;
-    private String expirationDate;
+	private String picture;
+    //private String expirationDate;
 
     public User() {
     }
 
-    public User(String username, String password) {
+    /*public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
+    }*/
     
-    public User(String newName, String newSurname, String newSSN, String newUniversity, String newCardNumber, String newExpirationDate) {
+    public User(String newName, String newSurname, String newEmail, String newUniversity, 
+		String newRole, String newStatus, String newCardNumber, String newPicture) {
     	name = newName;
     	surname = newSurname;
-    	ssn = newSSN;
+		email = newEmail;
     	university = newUniversity;
+		role = newRole;
+		status = newStatus;
     	cardNumber = newCardNumber;
-    	expirationDate = newExpirationDate;
+    	picture = newPicture;
     }
     
 
@@ -56,13 +68,21 @@ public class User  {
 		this.surname = surname;
 	}
 
-	public String getSsn() {
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/*public String getSsn() {
 		return ssn;
 	}
 
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
-	}
+	}*/
 
 	public String getUniversity() {
 		return university;
@@ -70,6 +90,22 @@ public class User  {
 
 	public void setUniversity(String university) {
 		this.university = university;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getCardNumber() {
@@ -80,15 +116,23 @@ public class User  {
 		this.cardNumber = cardNumber;
 	}
 
-	public String getExpirationDate() {
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	/*public String getExpirationDate() {
 		return expirationDate;
 	}
 
 	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
-	}
+	}*/
 
-	public int getId() {
+	/*public int getId() {
         return id;
     }
 
@@ -115,6 +159,6 @@ public class User  {
     @Override
     public String toString() {
         return username;
-    }
+    }*/
 
 }

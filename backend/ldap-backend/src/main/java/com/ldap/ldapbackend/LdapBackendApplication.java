@@ -9,13 +9,24 @@ import javax.naming.directory.*;
 //import javax.naming.directory.DirContext;
 //import javax.naming.directory.InitialDirContext;
 
+import com.ldap.ldapbackend.Controller.Controller;
+import com.ldap.ldapbackend.Model.User;
+import com.ldap.ldapbackend.Repository.UserRepositoryJPA;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
+
 public class LdapBackendApplication {
 
 	DirContext connection;
+
+	//Controller controller = new Controller();
 
 	public void Connection() {
 		Properties env = new Properties();
@@ -39,12 +50,13 @@ public class LdapBackendApplication {
 	}
 
 	public void getAllUsers() {
-		String searchFilter = "iscHomeUniversity=TUC";
+		String searchFilter = "sAMAccountName=pbaltuille";
 		String[] reqAtt = {"sAMAccountName", "sn", "givename", "iscHomeUniversity", "iscRoleInHomeUniversity", "iscRole", "iscExternalMailAddress"};
 		SearchControls controls = new SearchControls();
 		controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
 		controls.setReturningAttributes(reqAtt);
 		System.out.println("llega aqui 2 ");
+		User user = new User();
 
 		try {
 			NamingEnumeration users = connection.search("ou=staff,ou=personnel,ou=Domain User Accounts,dc=eurecapro,dc=tuc,dc=gr", searchFilter, controls);
@@ -63,7 +75,27 @@ public class LdapBackendApplication {
 				System.out.println(attr.get("iscRoleInHomeUniversity"));
 				System.out.println(attr.get("iscRole"));
 				System.out.println(attr.get("iscExternalMailAddress"));
+
+				user.setName("Pablo");
+				user.setSurname(attr.get("sn").toString());
+				user.setUniversity(attr.get("iscHomeUniversity").toString());
+				user.setRole(attr.get("iscRoleInHomeUniversity").toString());
+				user.setCardNumber("YYYYDDRRXXXX");
+				user.setStatus("");
+				user.setPicture("");
 			}
+			if (user.getName()==null) {System.out.println("user vacio");}
+			else {
+				System.out.println("user NAME: " + user.getName());
+				System.out.println("user SURNAME: " + user.getSurname());
+				System.out.println("user UNIVERSITY: " + user.getUniversity());
+				System.out.println("user ROLE: " + user.getRole());
+				System.out.println("user CARDNUMBER: " + user.getCardNumber());
+				System.out.println("user STATUS: " + user.getStatus());
+				System.out.println("user PICTURE: " + user.getPicture());
+				//controller.postUser(user);
+			}
+
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,8 +109,24 @@ public class LdapBackendApplication {
 
 		app.Connection();
 
-		app.getAllUsers();
+		//app.getAllUsers();
+
+		SpringApplication.run(LdapBackendApplication.class, args);
 
 	}
+
+	@RequestMapping(value = "/user/profile")
+    public void say() {
+        System.out.println("axios post");
+    }
+
+	public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:81");
+            }
+        };
+    }
 
 }
