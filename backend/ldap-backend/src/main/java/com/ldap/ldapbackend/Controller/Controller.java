@@ -1,6 +1,7 @@
 package com.ldap.ldapbackend.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.servlet.config.annotation.CorsRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDate;
 
@@ -41,7 +44,7 @@ import com.ldap.ldapbackend.Service.CardUserService;
 @EnableJpaRepositories("com.ldap.ldapbackend.Repository")
 //@RequestMapping("/ldap")
 @RequestMapping("/user")
-@CrossOrigin(origins = "*") //http://10.17.8.45:19006
+@CrossOrigin (origins = "*") //http://10.17.8.45:19006
 public class Controller {
 
 	@GetMapping("/security")
@@ -70,10 +73,10 @@ public class Controller {
 
 	//private final User user = null;
 
-    public Controller(UserRepositoryJPA userRepositoryJPA) { //, UserRepositoryCRUD userRepositoryCRUD
+    /*public Controller(UserRepositoryJPA userRepositoryJPA) { //, UserRepositoryCRUD userRepositoryCRUD
         this.userRepositoryJPA = userRepositoryJPA;
 		//this.userRepositoryCRUD = userRepositoryCRUD;
-    }
+    }*/
 
 	//public Controller() {}
 
@@ -107,6 +110,7 @@ public class Controller {
 	@GetMapping("/login")
 	public void authenticateUser(@PathVariable String email, @PathVariable String password) { // @PathVariable String role,
 		System.out.println("authenticate user");
+		System.out.println("email: " + email);
 		config.Authenticate(email, password); // role,
 
 		User user = config.getUser(email);
@@ -151,6 +155,16 @@ public class Controller {
 			default: return null;
 		}
 	}
+
+	/*@Bean
+	public WebMvcConfigurer corsConfigurer() {
+   		return new WebMvcConfigurer() {
+     		@Override
+      		public void addCorsMappings(CorsRegistry registry) {
+         		registry.addMapping("/**").allowedOrigins("*");
+      		}    
+   		};
+	}*/
 
 	/*public void authenticate(final String username, final String password) {
 		contextSource.getContext("cn=" + username + ",ou=users," + env.getRequiredProperty("ldap.partitionSuffix"), password);

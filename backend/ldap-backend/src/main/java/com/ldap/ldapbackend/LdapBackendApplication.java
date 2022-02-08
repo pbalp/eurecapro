@@ -15,13 +15,15 @@ import com.ldap.ldapbackend.Repository.UserRepositoryJPA;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-
+@RequestMapping(value = "/user/profile")
 public class LdapBackendApplication {
 
 	DirContext connection;
@@ -115,16 +117,18 @@ public class LdapBackendApplication {
 
 	}
 
-	@RequestMapping(value = "/user/profile")
+	
+	@PostMapping
     public void say() {
         System.out.println("axios post");
     }
 
+	@Bean
 	public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:81");
+                registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowCredentials(false);
             }
         };
     }
